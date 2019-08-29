@@ -4,4 +4,5 @@
 
     <node pkg="averaging_quaternion" type="tf_broadcaster" name="tf_broadcaster" output="screen" />
     <node pkg="averaging_quaternion" type="averaging_quaternion" name="averaging_quaternion" output="screen" />
+    <node pkg="averaging_quaternion" type="graph_plot.py" name="listener" output="screen" />
 </launch>

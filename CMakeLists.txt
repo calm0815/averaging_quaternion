@@ -9,6 +9,7 @@ project(averaging_quaternion)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  rospy
   std_msgs
   tf2_ros
   tf_conversions
