@@ -78,11 +78,12 @@ int main(int argc, char** argv)
     ros::Rate rate(10.0);
     while (nh.ok())
     {
-        geometry_msgs::TransformStamped transform_A, transform_B;
+        geometry_msgs::TransformStamped transform_A, transform_B, transform_C;
         try
         {
             transform_A = tfBuffer.lookupTransform("world", "TF_A", ros::Time(0), ros::Duration(1.0));
             transform_B = tfBuffer.lookupTransform("world", "TF_B", ros::Time(0), ros::Duration(1.0));
+            transform_C = tfBuffer.lookupTransform("world", "TF_C", ros::Time(0), ros::Duration(1.0));
         }
         catch (tf2::TransformException &ex) 
         {
@@ -95,6 +96,8 @@ int main(int argc, char** argv)
         transform_vector.push_back(transform_A);
         // std::cout << transform_B << std::endl;
         transform_vector.push_back(transform_B);
+        // std::cout << transform_C << std::endl;
+        transform_vector.push_back(transform_C);
 
         geometry_msgs::TransformStamped transform_ave;
         transform_ave.header.stamp = ros::Time::now();

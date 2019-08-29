@@ -38,12 +38,14 @@ int main(int argc, char** argv)
     static tf2_ros::TransformBroadcaster br;
 
     double deg = 0;
+    static double PI = 3.14159265359;
 
     ros::Rate loop_rate(10);
     while (ros::ok())
     {
-        br.sendTransform(setTransform("TF_A", 0.0, 0.5, 0.0, deg, deg, deg));
-        br.sendTransform(setTransform("TF_B", 0.0, -0.5, 0.0, deg, deg, deg));
+        br.sendTransform(setTransform("TF_A", cos(PI*0/3), sin(PI*0/3), 0.0, PI*cos(deg), PI*cos(deg), PI*cos(deg)));
+        br.sendTransform(setTransform("TF_B", cos(PI*2/3), sin(PI*2/3), 0.0, PI*cos(deg), PI*cos(deg), PI*cos(deg)));
+        br.sendTransform(setTransform("TF_C", cos(PI*4/3), sin(PI*4/3), 0.0, PI*cos(deg), PI*cos(deg), PI*cos(deg)));
         deg += 0.03;
         ros::spinOnce();
         loop_rate.sleep();
