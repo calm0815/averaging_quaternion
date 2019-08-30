@@ -47,6 +47,6 @@ if __name__ == '__main__':
         ax.set_rlim((0, 1.5))
         plt.pause(.01)
 
-        rospy.loginfo(quat2euler(trans_A.transform.rotation).y)
+        # rospy.loginfo(quat2euler(trans_A.transform.rotation))
 
         rate.sleep()
