@@ -8,13 +8,13 @@
 
 geometry_msgs::Vector3 averagingPosition(std::vector<geometry_msgs::TransformStamped> transform_vector)
 {
-    // Get the number of TF
+    /* Get the number of TF */
     const int TF_size = transform_vector.size();
 
     geometry_msgs::Vector3 position;
     for (const auto& transform : transform_vector)
     {
-        // calculate center position
+        /* calculate center position */
         position.x += transform.transform.translation.x / TF_size;
         position.y += transform.transform.translation.y / TF_size;
         position.z += transform.transform.translation.z / TF_size;
@@ -25,10 +25,10 @@ geometry_msgs::Vector3 averagingPosition(std::vector<geometry_msgs::TransformSta
 
 geometry_msgs::Quaternion averagingQuaternion(std::vector<geometry_msgs::TransformStamped> transform_vector)
 {
-    // Get the number of TF
+    /* Get the number of TF */
     const int TF_size = transform_vector.size();
 
-    // Make M matrix
+    /* Make M matrix */
     Eigen::MatrixXd M = Eigen::MatrixXd::Zero(4,4);
     for (const auto& transform : transform_vector)
     {
@@ -46,14 +46,14 @@ geometry_msgs::Quaternion averagingQuaternion(std::vector<geometry_msgs::Transfo
     // std::cout << "M" << std::endl;
     // std::cout << M << std::endl;
 
-    // Get maximum eigen vector
+    /* Get maximum eigen vector */
     Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> solver(M);
     Eigen::VectorXd max_eigenvector = solver.eigenvectors().col(solver.eigenvectors().row(0).size() - 1);
     Eigen::Quaterniond eigen_quat_ave(max_eigenvector(0), max_eigenvector(1), max_eigenvector(2), max_eigenvector(3));
     // std::cout << "M's eigenvectors" << std::endl;
     // std::cout << solver.eigenvectors() << std::endl;
 
-    // Data type conversion
+    /* Data type conversion */
     tf::Quaternion tf_quat_ave;
     tf::quaternionEigenToTF(eigen_quat_ave, tf_quat_ave);
     geometry_msgs::Quaternion quaternion_ave;
@@ -64,7 +64,7 @@ geometry_msgs::Quaternion averagingQuaternion(std::vector<geometry_msgs::Transfo
     return quaternion_ave;
 }
 
-// Node
+/* node */
 int main(int argc, char** argv)
 {
     ros::init(argc, argv, "tf_broadcaster");
